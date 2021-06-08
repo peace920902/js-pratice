@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+    <title></title>
+    <style>
+        .badge-danger {
+            background-color: red;
+            color: #fff;
+        }
+
+        .badge-success {
+            background-color: green;
+            color: #fff;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-9 m-auto">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="btn-group btn-group-justified mb-2">
+                                <button id="start" type="button" class="btn btn-secondary">開始</button>
+                                <button id="restart" type="button" class="btn btn-danger">放棄重來</button>
+                                <button id="cheat" type="button" class="btn btn-success">看答案</button>
+                            </div>
+                            <br>
+                            <ul id="guessResults" class="list-group">
+
+                            </ul>
+                            <div class="input-group mt-2">
+                                <span class="input-group-addon" id="sizing-addon1">猜答案</span>
+                                <input id="userGuess" type="text" name="" class="form-control" value=""
+                                    required="required">
+                                <span class="input-group-btn">
+                                    <a id="guess" type="button" class="btn btn-primary">猜!</a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let state = false;
+        let password;
+        const input = document.getElementById('userGuess');
+        const ul = document.getElementById('guessResults');
+        const startBtn = document.getElementById('start');
+        const restartBtn = document.getElementById('restart');
+        const cheatBtn = document.getElementById('cheat');
+        const guessBtn = document.getElementById('guess');
+
+        startBtn.onclick = resetGame;
+        restartBtn.onclick = resetGame;
+        cheatBtn.onclick = () => {
+            if (state)
+                alert(password);
+        }
+        guessBtn.onclick = sendAns;
+
+        function sendAns() {
+            if (!state) {
+                alert('請先開始');
+                input.value = '';
+                return;
+            }
+            let number = input.value;
+
+            //alert(re.test(number));
+            if (number.length != 4) {
+                alert('請輸入4個數字');
+                return;
+            }
+
+            let li = document.createElement('li');
+            li.setAttribute('class', 'list-group-item');
+            ul.appendChild(li);
+            if (number == password) {
+                alert('you win!');
+                input.value = '';
+                li.innerHTML = `<span class="badge badge-success">4A0B</span>&nbsp;&nbsp;${number}`
+                return;
+            }
+            li.innerHTML = `<span class="badge badge-danger">${compare(number)}</span>&nbsp;&nbsp;${number}`;
+            input.value = '';
+
+            // if (re.test(number)) {
+            //     alert('請輸入數字');
+            //     input.innerText = '';
+            //     return;
+            // }
+        }
+
+        function compare(number) {
+            let a = 0;
+            let b = 0;
+            let p = [...password];
+            [...number].forEach((element, index) => {
+                let i = p.indexOf(element);
+                if (i != -1) {
+                    if (i == index)
+                        a++;
+                    else
+                        b++
+                }
+            });
+            return `${a}A${b}B`;
+        }
+
+
+        function resetGame() {
+            state = true;
+            ul.innerHTML = '';
+            input.innerText = '';
+            password = generateNumber();
+            console.log(password);
+        }
+
+        function generateNumber() {
+            var arr = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+            var lastArr = new Array();
+            while (lastArr.length < 4) {
+                var num = Math.floor(Math.random() * 10);
+                if (lastArr.indexOf(arr[num]) === -1) {
+                    lastArr += arr[num];
+                }
+            }
+            return lastArr;
+        }
+    </script>
+
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
