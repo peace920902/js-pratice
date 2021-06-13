@@ -1,0 +1,82 @@
+[
+    {
+        "product": "iPhone12",
+        "defaultImg": "./apple-assert/iphone-12-select-2021.jpg",
+        "colors": [
+            {
+                "color": "白色",
+                "imgPath": ""
+            },
+            {
+                "color": "黑色",
+                "imgPath": ""
+            },
+            {
+                "color": "藍色",
+                "imgPath": ""
+            },
+            {
+                "color": "綠色",
+                "imgPath": ""
+            },
+            {
+                "color": "紫色",
+                "imgPath": ""
+            },
+            {
+                "color": "紅色",
+                "imgPath": ""
+            }
+        ],
+        "spec": [
+            {
+                "volume": 64,
+                "price": 23900
+            },
+            {
+                "volume": 128,
+                "price": 25500
+            },
+            {
+                "volume": 256,
+                "price": 29000
+            }
+        ]
+    },
+    {
+        "product": "iPad",
+        "defaultImg": "./apple-assert/ipad-pro-12-11-select-202104_GEO_TW.jpg",
+        "colors": [
+            {
+                "color": "白色",
+                "imgPath": ""
+            },
+            {
+                "color": "太空灰",
+                "imgPath": ""
+            }
+        ],
+        "spec": [
+            {
+                "volume": 128,
+                "price": 34900
+            },
+            {
+                "volume": 256,
+                "price": 38000
+            },
+            {
+                "volume": 512,
+                "price": 44200
+            },
+            {
+                "volume": 1024,
+                "price": 56600
+            },
+            {
+                "volume": 2048,
+                "price": 69000
+            }
+        ]
+    }
+]

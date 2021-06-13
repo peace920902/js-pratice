@@ -33,62 +33,161 @@
             color: #fff;
         }
 
-        .operator button {
+        .operator button,
+        .numbers #equalBtn {
             background-color: rgb(255, 166, 1);
             color: #fff;
         }
+
+        .operator #backBtn {
+            background-color: rgb(109, 0, 0);
+        }
+
+        #panel {
+            height: 100px;
+            text-align: right;
+            font-size: 72px;
+            box-sizing: border-box;
+        }
+
+        #subPanel {
+            height: 50px;
+            text-align: right;
+            font-size: 36px;
+        }
+
+        div>button {
+            margin: auto;
+        }
     </style>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 </head>
 
 <body>
+
+
+
     <div class="container">
         <div class="row">
-            <div id="subPanel" class="col-12"></div>
-            <div id='console' class="col-12"></div>
-
-            <div class="container">
-                <div class="row">
-                    <div class="normal col-9">
-                        <div class="row control">
-                            <div class="col-4 p-3"><button>C</button></div>
-                            <div class="col-4 p-3"><button>&#177;</button></div>
-                            <div class="col-4 p-3"><button>%</button></div>
-                        </div>
-                        <div id="numbers" class="numbers row flex-wrap-reverse"></div>
-                        <div id="otherNumber" class="numbers row"></div>
-                    </div>
-                    <div class="operator col-3 ">
-                        <div class="p-3"><button>&divide;</button></div>
-                        <div class="p-3"><button>&times;</button></div>
-                        <div class="p-3"><button>+</button></div>
-                        <div class="p-3"><button>-</button></div>
-                        <div class="p-3"><button>=</button></div>
-                    </div>
+            <div class="offset-1 col-10">
+                <div id="subPanel"></div>
+                <div id='panel'>0</div>
+            </div>
+            <div class="normal col-9">
+                <div class="row control">
+                    <div class="col-4 p-3"><button id='clearBtn'>C</button></div>
+                    <div class="col-4 p-3"><button id='symbolBtn'>&#177;</button></div>
+                    <div class="col-4 p-3"><button id='modBtn'>%</button></div>
+                </div>
+                <div id="numbers" class="numbers row flex-wrap-reverse"></div>
+                <div id="otherNumber" class="numbers row">
+                    <div class="col-4 p-3"><button>0</button></div>
+                    <div class="col-4 p-3"><button>.</button></div>
+                    <div class="col-4 p-3"><button id="equalBtn">=</button></div>
                 </div>
             </div>
+            <div class="operator col-3 ">
+                <div class="p-3"><button id="backBtn">&larr;</button></div>
+                <div class="p-3"><button id="divideBtn">&divide;</button></div>
+                <div class="p-3"><button id="timesBtn">&times;</button></div>
+                <div class="p-3"><button id="addBtn">+</button></div>
+                <div class="p-3"><button id="minusBtn">-</button></div>
+            </div>
         </div>
-
     </div>
 
 
+
     <script>
-        const panel = document.getElementById('console');
-        const subPanel = document.getElementById('subPanel');
-        const numbers = document.getElementById('numbers');
+        const panel = $('#panel');
+        const subPanel = $('#subPanel');
+        const stack = [];
+        const operators = new Map([
+            ['÷', (a, b) => a / b],
+            ['-', (a, b) => a - b],
+            ['+', (a, b) => a + b],
+            ['×', (a, b) => a * b],
+            ['%', (a, b) => a % b]
+        ]);
 
+        (function () {
+            const numbers = $('#numbers');
+            for (let i = 1; i < 10; i++) {
+                const div = document.createElement('div');
+                const btn = document.createElement('button');
+                btn.innerText = i;
+                btn.onclick = addNumber;
+                div.appendChild(btn);
+                div.setAttribute('class', 'col-4 p-3');
+                numbers.append(div);
+            }
+        })();
 
-        for (let i = 1; i < 10; i++) {
-            const div = document.createElement('div');
-            const btn = document.createElement('button');
-            btn.innerText = i;
-            div.appendChild(btn);
-            div.setAttribute('class', 'col-4 p-3');
-            numbers.appendChild(div);
+        $('#otherNumber button:not(#equalBtn)').click(addNumber);
+        $('#clearBtn').click(() => {
+            subPanel.text('');
+            panel.text('0');
+            stack.length = 0;
+        });
+        $('#symbolBtn').click(() => panel.text(-1 * parseFloat(panel.text())));
+
+        function addNumber() {
+            let text = $(this).text();
+            let currentText = panel.text();
+            if (currentText == '0') {
+                if (text == '.') {
+                    panel.text(currentText + text);
+                    return;
+                }
+                panel.text(text);
+            }
+            else if (text == '.' && currentText.includes('.')) return;
+            else panel.text(currentText + text);
         }
 
-        function controlNumber() {
+        $('.operator button:not(#backBtn)').click(
+            function () {
+                let op = $(this).text();
+                if (stack.length == 0) {
+                    log(op);
+                }
+                else if (panel.text()) {
+                    calculate();
+                    log(op);
+                }
+                else {
+                    stack.pop();
+                    stack.push(op);
+                    subPanel.text(stack.join(''));
+                }
+            }
+        )
 
+        $('#equalBtn').click(() => {
+            calculate();
+        })
+
+        function log(op) {
+            stack.push(parseFloat(panel.text()));
+            stack.push(op);
+            subPanel.text(stack.join(''));
+            panel.text('');
         }
+
+        function calculate() {
+            if (stack.length == 0) return;
+            let b = parseFloat(panel.text());
+            stack.push(b);
+            subPanel.text(stack.join(''));
+            b = stack.pop();
+            let operator = stack.pop();
+            let a = stack.pop();
+
+            panel.text(operators.get(operator)(a, b));
+        }
+
     </script>
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
