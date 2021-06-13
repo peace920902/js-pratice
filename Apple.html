@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fake Apple</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="./apple-assert/reset.css">
+    <link rel="stylesheet" href="./apple-assert/main.css">
+
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><button class="product">iPhone12</button></li>
+                <li><button class="product">iPad</button></li>
+                <li><button class="product">Watch</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <div id="photo">
+            </div>
+            <div id="spec">
+                <div class="colors"></div>
+                <div class="volume"></div>
+                <div class="cost"></div>
+            </div>
+        </div>
+    </main>
+
+
+    <script type="module">
+        const photo = $('#photo');
+        const img = $('<img>');
+        photo.append(img);
+        const data = await $.get('apple.json');
+        console.log(data);
+        $('.product').click(e => selectProduct(e));
+
+        function selectProduct(e) {
+            const product = getProduct(e.target.innerText);
+            console.log(product.defaultImg);
+            img.attr('src', product.defaultImg);
+
+        }
+
+        function getProduct(name) {
+            return data.find(x => x.product === name);
+        }
+    </script>
+</body>
+
+</html>
