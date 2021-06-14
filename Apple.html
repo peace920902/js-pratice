@@ -31,7 +31,10 @@
             </div>
             <div id="spec">
                 <div class="colors"></div>
-                <div class="volume"></div>
+
+                <div class="specification">
+                </div>
+
                 <div class="cost"></div>
             </div>
         </div>
@@ -43,17 +46,52 @@
         const img = $('<img>');
         photo.append(img);
         const data = await $.get('apple.json');
-        console.log(data);
         $('.product').click(e => selectProduct(e));
 
         function selectProduct(e) {
             const product = getProduct(e.target.innerText);
-            console.log(product.defaultImg);
+            if (product == null) return;
             img.attr('src', product.defaultImg);
+            $('.colors').html('');
+            $('.specification').html('');
 
+            product.colors.forEach(c => {
+                const div = $('<div class="color"></div>').append($('<img>').attr('src', c.colorPath)).attr('value', c.color);
+                div.append($('<p></p>').text(c.color));
+                div.click(() => selectColor(div, product));
+                $('.colors').append(div);
+            });
+
+            product.spec.forEach(s => {
+                displayVolume(s);
+            })
+        }
+
+        function selectColor(element, product) {
+            let color = product.colors.find(x => x.color === element.text());
+            img.attr('src', color.imgPath);
+        }
+
+        function displayVolume(spec) {
+            const div = $('<div class="spec"></div>');
+            let v = spec.volume / 1024;
+            const vol = $('<p></p>')
+            vol.html(v >= 1 ? v + '<sub>TB<sub>' : spec.volume + '<sub>GB<sub>');
+            div.append(vol);
+            div.append($('<p></p>').text('NT$' + spec.price));
+            div.click(() => displayPrice(spec));
+            $('.specification').append(div);
+        }
+
+        function displayPrice(spec) {
+            $('.cost').text('NT$' + spec.price);
         }
 
         function getProduct(name) {
+            if (name === "Watch") {
+                $('#photo').html('此商品暫時缺貨');
+                return null;
+            }
             return data.find(x => x.product === name);
         }
     </script>

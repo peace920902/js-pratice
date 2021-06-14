@@ -1,6 +1,9 @@
 body {
   min-width: 375px;
 }
+// * {
+//   outline: 1px solid red;
+// }
 
 nav ul {
   display: flex;
@@ -12,5 +15,87 @@ nav ul {
     padding: 10px;
     margin: 10px;
     border-radius: 5px;
+    cursor: pointer;
+  }
+}
+
+@mixin specButton {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 40%;
+  box-sizing: border-box;
+  padding: 20px 60px;
+  border: 1px solid #ddd;
+  margin: 5px auto;
+  border-radius: 5px;
+  align-items: center;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.container {
+  display: flex;
+  padding: 3% 10%;
+  flex-wrap: wrap;
+  #photo {
+    width: 100%;
+    img {
+      width: 100%;
+    }
+  }
+  #spec {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .colors {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    .color {
+      @include specButton();
+      p {
+        margin-top: 5px;
+      }
+    }
+    img {
+      display: block;
+      width: 32px;
+      height: 32px;
+    }
+  }
+
+  .specification {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    .spec {
+      @include specButton();
+      p {
+        margin-top: 5px;
+      }
+    }
+  }
+}
+
+.cost {
+  margin-top: 10px;
+  width: 100%;
+  font-size: 36px;
+  text-align: center;
+}
+
+@media screen and (min-width: 768px) {
+  .container {
+    display: flex;
+    #photo {
+      width: 50%;
+    }
+    #spec {
+      width: 50%;
+    }
   }
 }

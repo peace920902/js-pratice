@@ -5,27 +5,33 @@
         "colors": [
             {
                 "color": "白色",
-                "imgPath": ""
+                "colorPath": "./apple-assert/finish-white-202010.jpg",
+                "imgPath": "./apple-assert/iphone-12-white-select-2020.png"
             },
             {
                 "color": "黑色",
-                "imgPath": ""
+                "colorPath": "./apple-assert/finish-black-202010.jpg",
+                "imgPath": "./apple-assert/iphone-12-black-select-2020.png"
             },
             {
                 "color": "藍色",
-                "imgPath": ""
+                "colorPath": "./apple-assert/finish-blue-202010.jpg",
+                "imgPath": "./apple-assert/iphone-12-blue-select-2020.png"
             },
             {
                 "color": "綠色",
-                "imgPath": ""
+                "colorPath": "./apple-assert/finish-green-202010.jpg",
+                "imgPath": "./apple-assert/iphone-12-green-select-2020.png"
             },
             {
                 "color": "紫色",
-                "imgPath": ""
+                "colorPath": "./apple-assert/finish-purple-202104.jpg",
+                "imgPath": "./apple-assert/iphone-12-purple-select-2021.png"
             },
             {
                 "color": "紅色",
-                "imgPath": ""
+                "colorPath": "./apple-assert/finish-red-202010.jpg",
+                "imgPath": "./apple-assert/iphone-12-red-select-2020.png"
             }
         ],
         "spec": [
@@ -49,11 +55,13 @@
         "colors": [
             {
                 "color": "白色",
-                "imgPath": ""
+                "colorPath": "./apple-assert/finish-silver-201508.png",
+                "imgPath": "./apple-assert/ipad-pro-12-select-cell-silver-202104_GEO_TW.jpg"
             },
             {
                 "color": "太空灰",
-                "imgPath": ""
+                "colorPath": "./apple-assert/finish-space-gray-201508.png",
+                "imgPath": "./apple-assert/ipad-pro-12-select-cell-spacegray-202104_GEO_TW.jpg"
             }
         ],
         "spec": [
