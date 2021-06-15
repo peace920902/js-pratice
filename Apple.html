@@ -90,8 +90,11 @@
         function getProduct(name) {
             if (name === "Watch") {
                 $('#photo').html('此商品暫時缺貨');
+                photo.append(img);
                 return null;
             }
+            $('#photo').html('');
+            photo.append(img);
             return data.find(x => x.product === name);
         }
     </script>
