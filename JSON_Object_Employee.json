@@ -1,0 +1,56 @@
+{
+    "employee1": {
+        "firtsname": "Kevin",
+        "height": 168,
+        "email": "Kevin@gmail.com",
+        "city": {
+            "通訊地址": "台北市",
+            "戶籍地址": "台北市"
+        },
+        "phone": {
+            "市話": "無",
+            "行動電話": "0000000000"
+        },
+        "cars": [
+            "BMW",
+            "Nissan GT-R",
+            "Audio"
+        ]
+    },
+    "employee2": {
+        "firtsname": "John",
+        "height": 168,
+        "email": "John@gmail.com",
+        "city": {
+            "通訊地址": "台北市",
+            "戶籍地址": "台北市"
+        },
+        "phone": {
+            "市話": "無",
+            "行動電話": "1111111111"
+        },
+        "cars": [
+            "BMW",
+            "Nissan GT-R",
+            "Audio"
+        ]
+    },
+    "employee3": {
+        "firtsname": "Ana",
+        "height": 168,
+        "email": "Ana@gmail.com",
+        "city": {
+            "通訊地址": "台北市",
+            "戶籍地址": "台北市"
+        },
+        "phone": {
+            "市話": "無",
+            "行動電話": "2222222222"
+        },
+        "cars": [
+            "BMW",
+            "Nissan GT-R",
+            "Audio"
+        ]
+    }
+}
